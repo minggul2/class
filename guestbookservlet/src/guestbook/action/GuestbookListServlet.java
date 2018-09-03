@@ -38,45 +38,19 @@ public class GuestbookListServlet extends HttpServlet {
 		out.println("<body>");
 		
 		
-		/*
-		out.println("<tr>");
-		out.println("<th>글번호</th>");
-		out.println("<th>글제목</th>");
-		out.println("<th>작성자</th>");
-		out.println("<th>작성일</th>");
-		out.println("</tr>");
-		*/
 		
 		//db에서 arrayList꺼내오기
 		GuestbookDAO guestbookDAO = GuestbookDAO.getInstance();
 		ArrayList<GuestbookDTO> guestbookList = new ArrayList<>();
 		guestbookList = guestbookDAO.list();
 		
+		//1페이지당 3개씩
 		
+		//페이징 처리
 		int totalA = guestbookDAO.getTotalA();	//총 글수
-		System.out.println("totalA = "+totalA);
+		int totalP = (totalA + 2) / 3; //총 페이지 수
 		
-		/*
-		//리스트는 반복문 사용해야할듯
-		for(GuestbookDTO data : guestbookList) {
-			out.println("<tr>");
-			out.println("<td>");
-			out.println(data.getSeq());
-			out.println("</td>");
-			out.println("<td>");
-			out.println("<a href = '/guestbookservlet/GuestbookListServlet?subject="+ data.getSubject()+"'>");
-			out.println(data.getSubject());
-			out.println("</a>");
-			out.println("</td>");
-			out.println("<td>");
-			out.println(data.getName());
-			out.println("</td>");
-			out.println("<td>");
-			out.println(data.getLogtime());
-			out.println("</td>");
-			out.println("</tr>");
-		}
-		*/
+		
 		out.println("<h2 align = 'center'>글목록</h2>");
 		for(GuestbookDTO dto : guestbookList) {
 			out.println("<table style='table-layout: fixed;' border = 1 cellpadding = '5' cellspacing ='0' align = 'center' >");
