@@ -75,14 +75,19 @@ public class GuestbookDAO {
 	}
 	
 	
-	public ArrayList<GuestbookDTO> list(){
+	public ArrayList<GuestbookDTO> list(int startNum, int endNum){
 		getConnection();
 		ArrayList<GuestbookDTO> guestbookList = new ArrayList<>();
-		String sql = "select seq, name, email, homepage, subject, content,  to_char(logtime, 'YYYY\".\"MM\".\"DD') as logtime from guestbook order by 1 desc";
+		String sql = "select seq, name, email, homepage, subject, content,  to_char(logtime, 'YYYY\".\"MM\".\"DD') as logtime from" 
+				+ "(select rownum rn, tt.* from"
+				+ "(select * from guestbook order by seq desc)tt" 
+				+ ")where rn >= ? and rn <= ?";
 		
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startNum);
+			pstmt.setInt(2, endNum);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				GuestbookDTO guestbookDTO = new GuestbookDTO();

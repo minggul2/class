@@ -18,9 +18,18 @@ public class GuestbookListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
      
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//DB
+		//데이터
+		
+		int pg = Integer.parseInt(request.getParameter("pg"));
+		
+		
+		//DB 1 1페이지당 3개씩
+		int endNum = pg * 3;
+		int startNum = endNum - 2;
+		
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
+		
 		
 		
 		out.println("<html>");
@@ -42,16 +51,22 @@ public class GuestbookListServlet extends HttpServlet {
 		//db에서 arrayList꺼내오기
 		GuestbookDAO guestbookDAO = GuestbookDAO.getInstance();
 		ArrayList<GuestbookDTO> guestbookList = new ArrayList<>();
-		guestbookList = guestbookDAO.list();
+		guestbookList = guestbookDAO.list(startNum, endNum);
 		
 		//1페이지당 3개씩
-		
+
 		//페이징 처리
 		int totalA = guestbookDAO.getTotalA();	//총 글수
 		int totalP = (totalA + 2) / 3; //총 페이지 수
 		
 		
 		out.println("<h2 align = 'center'>글목록</h2>");
+		
+		for(int i = 1; i <= totalP; i++) {
+			out.println("[<a href='/guestbookservlet/GuestbookListServlet?pg="+i+"'>"+i+"</a>]");
+		}	
+		out.println("<br>");
+		
 		for(GuestbookDTO dto : guestbookList) {
 			out.println("<table style='table-layout: fixed;' border = 1 cellpadding = '5' cellspacing ='0' align = 'center' >");
 			out.println("<tr>");
