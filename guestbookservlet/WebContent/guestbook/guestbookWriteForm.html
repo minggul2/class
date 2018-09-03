@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>글쓰기</title>
+</head>
+<body>
+	<form name = "guestbookWriteForm" method = "post" action = "/guestbookservlet/GuestbookWrite">
+	 																					
+	 <table border = "1" cellpadding = "5" cellspacing = "0" align= "center">
+	 <caption><h2>글쓰기</h2></caption>
+	   <tr>
+	    <td>작성자</td>
+	    <td><input type = "text" name = "name" placeholder = "작성자 입력"></td>
+	   </tr>
+	   <a href="test"></a>
+	   <tr>
+	    <td>이메일</td>
+	    <td><input type = "text" name = "email" placeholder = "이메일 입력"></td>
+	   </tr>
+	   
+	   <tr>
+	    <td>홈페이지</td>
+	    <td><input type = "text" name = "homepage" value = "http://"></td>
+	   </tr>
+	   
+	   <tr>
+	    <td>제목</td>
+	    <td><input type = "text" name = "subject" placeholder = "제목 입력"></td>
+	   </tr>
+	   
+	   <tr>
+	    <td>내용</td>
+	    <td><textarea rows = "5" cols = "30" name = "content" style = "overflow-y:scroll; resize:none;" placeholder = "내용을 입력" ></textarea></td>
+	   </tr>
+	   
+	   <tr>
+	    <td colspan = "2" align = "center">
+	    <input type = "button" value = "글작성" onclick = "checkGuestbookWriteForm()">
+	    <input type = "reset"  value = "다시작성">
+	    <input type = "button" value = "글목록" onclick = "location.href = '/guestbookservlet/GuestbookListServlet'">
+	    </td>
+	   </tr>
+	   
+	 </table>	
+	</form>
+	
+	
+	<script src = ../js/guestbook.js>
+	
+	</script>
+</body>
+</html>
+
+ 
