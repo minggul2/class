@@ -34,15 +34,11 @@ public class GuestbookListServlet extends HttpServlet {
 		
 		out.println("<html>");
 		out.println("<head>");
-		out.println("<style> td  {"+
-				"  overflow: hidden; \r\n" + 
-				"  text-overflow: ellipsis;\r\n" + 
-				"  white-space: nowrap; \r\n" + 
-				"  width: 100px;\r\n" + 
-				"  height: 20px;}");
-		out.println("body span { "+
-		     "display: block; \r\n" +  // inline-block으로 설정 필요
-			"} </style>");
+		
+//		out.println("<style> .test_table { table-layout: fixed; }");//높이고정
+//		out.println("		 .test_table td { width : 50px; overflow : hidden; text-overflow:ellipsis; white-space:nowrap; }");
+//		out.println("		 .test_table tr { height : 10px; }");
+//		out.println("</style>");
 		out.println("</head>");
 		out.println("<body>");
 		
@@ -62,13 +58,20 @@ public class GuestbookListServlet extends HttpServlet {
 		
 		out.println("<h2 align = 'center'>글목록</h2>");
 		
+		out.println("<div align = 'center' style = 'font-size : 50'>"); 
 		for(int i = 1; i <= totalP; i++) {
-			out.println("[<a href='/guestbookservlet/GuestbookListServlet?pg="+i+"'>"+i+"</a>]");
+			if(pg == i)		
+				out.println("[<a href='/guestbookservlet/GuestbookListServlet?pg="+i+"' style = 'color:red;  text-decoration: underline;'>"+i+"</a>]");
+			else {
+				out.println("[<a href='/guestbookservlet/GuestbookListServlet?pg="+i+"' style = 'color:black; text-decoration: none;'>"+i+"</a>]");
+			}
 		}	
+		out.println("</div>");
+		
 		out.println("<br>");
 		
 		for(GuestbookDTO dto : guestbookList) {
-			out.println("<table style='table-layout: fixed;' border = 1 cellpadding = '5' cellspacing ='0' align = 'center' >");
+			out.println("<table style='table-layout: fixed;' border = 1 cellpadding = '5' cellspacing ='0' align = 'center'>");
 			out.println("<tr>");
 			out.println("<td width = 100>작성자</td>");
 			out.println("<td width = 100>"+dto.getName()+"</td>");
@@ -83,7 +86,7 @@ public class GuestbookListServlet extends HttpServlet {
 			
 			out.println("<tr>");
 			out.println("<td>홈페이지</td>");
-			out.println("<td colspan = '3'><a href = '"+dto.getHomepage()+"'>"+dto.getHomepage()+"</a></td>");
+			out.println("<td colspan = '3' style = 'text-overflow:ellipsis; overflow:hidden;'><a href = '"+dto.getHomepage()+"'><nobr>"+dto.getHomepage()+"<nobr></a></td>");
 //			out.println("<td colspan = '3' style='width:50%; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;'><a href = '"+dto.getHomepage()+"'</a>"+dto.getHomepage()+"</td>");
 			out.println("</tr>");
 					

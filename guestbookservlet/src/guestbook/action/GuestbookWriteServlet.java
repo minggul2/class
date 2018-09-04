@@ -59,7 +59,7 @@ public class GuestbookWriteServlet extends HttpServlet {
 //		rd.forward(request, response);
 		
 		//GET
-		response.sendRedirect("/guestbookservlet/GuestbookListServlet");
+		response.sendRedirect("/guestbookservlet/GuestbookListServlet?pg=1");
 		
 		
 		
